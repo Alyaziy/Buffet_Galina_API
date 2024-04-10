@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Buffet_Galina_API", "Buffet_Galina_API\Buffet_Galina_API.csproj", "{22D403E4-E365-47ED-B40E-2D32E2185E9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galina", "Galina\Galina.csproj", "{9A708852-4E0C-467D-A317-50C50414133F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22D403E4-E365-47ED-B40E-2D32E2185E9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22D403E4-E365-47ED-B40E-2D32E2185E9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22D403E4-E365-47ED-B40E-2D32E2185E9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22D403E4-E365-47ED-B40E-2D32E2185E9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A708852-4E0C-467D-A317-50C50414133F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A708852-4E0C-467D-A317-50C50414133F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A708852-4E0C-467D-A317-50C50414133F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A708852-4E0C-467D-A317-50C50414133F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FDD3A08E-69C7-4A77-8427-6CE3CD04E0A8}
+	EndGlobalSection
+EndGlobal
