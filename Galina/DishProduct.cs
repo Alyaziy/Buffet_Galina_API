@@ -11,7 +11,7 @@ public partial class DishProduct
 
     public int ProductId { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public DateTime? CreatedAt { get; set; } 
 
     public DateTime? UpdatedAt { get; set; }
 

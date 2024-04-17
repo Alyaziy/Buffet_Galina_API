@@ -93,10 +93,10 @@ namespace Buffet_Galina_API.Controllers
             var hz = h.Select(s => new DishDTO { Category = s.Key.Title, CategoryId = s.Key.CategoryId,
                 Price = s.Key.Price, Image = s.Key.Image, Title = s.Key.Title,
                 Id = s.Key.Id, Products = s.Select(d=>new ProductDTO { CreatedAt = d.CreatedAt, 
-                    Id = d.Id, Title = d.Product.Title, UpdatedAt = d.UpdatedAt }).ToList() });
+                    Id = d.ProductId, Title = d.Product.Title, UpdatedAt = d.UpdatedAt }).ToList() });
 
             return hz.ToList();
-            //var t = _context.Dish1s.Include(s => s.Category).Include(s => s.DishProducts).ThenInclude(s => s.Product).ToList();
+            //var t = _context.Dish1s.Include(s => s.Category).Include(s => s.DishProducts).ThenInclude(s => s.Product).ToList(); 
             //List<DishDTO> dishes = t.Select(s => new DishDTO
             //{
             //    Id = s.Id,
