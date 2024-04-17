@@ -188,5 +188,6 @@ namespace Buffet_Galina_API.Controllers
             return (_context.Dish1s?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
+
     }
 }
