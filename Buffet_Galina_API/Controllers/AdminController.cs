@@ -110,6 +110,23 @@ namespace Buffet_Galina_API.Controllers
             //return dishes;
         }
 
+        [HttpGet("GetCategories")]
+        public async Task<ActionResult<List<CategoryDTO>>> GetCategories()
+        {
+            List<CategoryDTO> categories = _context.Categories.ToList().Select(s => new CategoryDTO { Id = s.Id, Title = s.Title, CreatedAt= s.CreatedAt, UpdateAt = s.UpdateAt }).ToList();
+            return categories;
+        }
+
+        [HttpGet("GetProducts")]
+        public async Task<ActionResult<List<ProductDTO>>> GetProducts()
+        {
+            List<ProductDTO> products = _context.Products.ToList().Select(s => new ProductDTO { Id = s.Id, Title = s.Title, CreatedAt = s.CreatedAt, UpdatedAt = s.UpdatedAt }).ToList();
+            return products;
+        }
+
+
+
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDishes(int id)
         {
@@ -188,6 +205,6 @@ namespace Buffet_Galina_API.Controllers
             return (_context.Dish1s?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-
+        
     }
 }
