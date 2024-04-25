@@ -3,6 +3,7 @@ using Galina;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Buffet_Galina_API.Controllers
 {
@@ -87,7 +88,7 @@ namespace Buffet_Galina_API.Controllers
         public async Task<ActionResult<List<DishDTO>>> GetDish()
         {
             var h = _context.DishProducts.Include(s => s.Product).Include(s => s.Dish).
-                ThenInclude(s => s.Category).ToList().GroupBy(s => s.Dish);
+                ThenInclude(s => s.Category).OrderBy(s=>s.DishId).ToList().GroupBy(s => s.Dish);
            
             
             var hz = h.Select(s => new DishDTO { Category = s.Key.Title, CategoryId = s.Key.CategoryId,
@@ -127,6 +128,7 @@ namespace Buffet_Galina_API.Controllers
 
 
 
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDishes(int id)
         {
@@ -156,7 +158,7 @@ namespace Buffet_Galina_API.Controllers
             }
 
             // Поиск существующего зомби в базе данных
-            var existingDish = await _context.Dish1s.FirstOrDefaultAsync(s => s.Id == id);
+            var existingDish = await _context.Dish1s.Include(s=>s.Category).Include(s=>s.DishProducts).FirstOrDefaultAsync(s => s.Id == id);
             if (existingDish == null)
             {
                 return NotFound();
@@ -167,23 +169,25 @@ namespace Buffet_Galina_API.Controllers
             existingDish.CategoryId = dishDTO.CategoryId;
             existingDish.Price = dishDTO.Price;
             existingDish.Image = dishDTO.Image;
+            _context.DishProducts.RemoveRange(existingDish.DishProducts);
+
+            existingDish.DishProducts.Clear();
             existingDish.DishProducts = dishDTO.Products.Select(p => new DishProduct
             {
-                Product = new Product 
-                { CreatedAt = p.CreatedAt,
-                    Id = p.Id, Title = p.Title, UpdatedAt = p.UpdatedAt 
-                } 
+                DishId = id,
+                Product = _context.Products.Find(p.Id)
             }).ToList();
 
 
-            _context.Entry(existingDish).State = EntityState.Modified;
+           
 
             try
-            {
+            { 
+                _context.Entry(existingDish).State = EntityState.Modified;
                 // Сохранение изменений в базе данных
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception e)
             {
                 if (!DishExists(id))
                 {
