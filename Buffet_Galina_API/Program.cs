@@ -9,6 +9,7 @@ builder.Services.AddControllers().AddJsonOptions(s => s.JsonSerializerOptions.Re
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<OrderNumbers>();
 builder.Services.AddDbContext<User01Context>();
 
 var app = builder.Build();

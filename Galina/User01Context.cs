@@ -155,7 +155,7 @@ public partial class User01Context : DbContext
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDishes)
                 .HasForeignKey(d => d.OrderId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_OrderDish_Order");
         });
 
