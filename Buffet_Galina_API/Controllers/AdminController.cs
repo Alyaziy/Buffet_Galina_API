@@ -123,7 +123,7 @@ namespace Buffet_Galina_API.Controllers
 
             var hz = h.Select(s => new DishDTO
             {
-                Category = s.Key.Title,
+                Category = s.Key.Category.Title,
                 CategoryId = s.Key.CategoryId,
                 Price = s.Key.Price,
                 Image = s.Key.Image,
@@ -193,8 +193,10 @@ namespace Buffet_Galina_API.Controllers
             else
             {
                 addeddish.Value++;
+                _context.Entry(addeddish).State = EntityState.Modified;
             }
             _context.Entry(order).State = EntityState.Modified; 
+             
             _context.SaveChanges();
             return Ok();
         }
@@ -221,18 +223,22 @@ namespace Buffet_Galina_API.Controllers
         [HttpDelete("DeleteDishInOrder/{id}")]
         public async Task<IActionResult> DeleteDishInOrder(int id)
         {
-            if (_context.Dish1s == null) 
+            if (_context.Dish1s == null)
             {
                 return NotFound();
             }
             var dish = await _context.Dish1s.FindAsync(id);
-            if (dish == null) 
+            if (dish == null)
             {
                 return NotFound();
             }
-            var fig = _context.OrderDishes.Where(s =>s.DishId== id).ToList();
-            _context.OrderDishes.RemoveRange(fig);
-            _context.RemoveRange(fig);
+            var fig = _context.OrderDishes.FirstOrDefault(s => s.DishId == id);
+            fig.Value--;
+            if (fig.Value <= 0)
+            {
+                 _context.OrderDishes.Remove(fig);
+            }
+           
             await _context.SaveChangesAsync();
             return NoContent();
         }
